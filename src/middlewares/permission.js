@@ -131,9 +131,7 @@ const getMembership = async (uid, lid, site) => {
  */
 const authMiddleware = async (req, res, next) => {
     let userAgent = req.headers['user-agent'];
-    let ipAddr = req.headers['x-real-ip'];
-    // let ipAddr = '45.126.3.252';
-    console.log("ip address ====>", ipAddr);
+    let ipAddr = process.env.NODE_ENV == "development" ? "45.126.3.252" : req.headers['x-forwarded-for'];
     let { sess, site } = req.body;
     if (!sess) {
         return res.status(400).end('Bad Request, please try again.');
@@ -175,9 +173,8 @@ const adminMiddleware = async (req, res, next) => {
     let { wpInfo, sess } = req.cookies;
     if (!wpInfo || !sess) return res.status(400).end('Access Denied.');
     let userAgent = req.headers['user-agent'];
-    let ipAddr = req.headers['x-real-ip'];
-    // let ipAddr = '45.126.3.252';
-    console.log("ip address ======>", ipAddr);
+    let ipAddr = process.env.NODE_ENV == "development" ? "45.126.3.252" : req.headers['x-forwarded-for'];
+
     if (!isValidSession(sess, userAgent, ipAddr)) return res.status(400).end('Session is invalid.');
     
     let wpInfoDecoded = JSON.parse(base64.decode(wpInfo));
