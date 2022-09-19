@@ -8,7 +8,6 @@ module.exports = {
      * @param { logs } res 
      */
     setServerLog: async (req, res) => {
-        console.log("SERVER_LOG", req.body)
         try {
             let { log } = req.body;
             serverLog.error(log);
@@ -24,7 +23,6 @@ module.exports = {
         }
     },
     setSemrushLog: async (req, res) => {
-        console.log("SEMRUSH_LOG", req.body);
         try {
             let { log } = req.body;
             semrushLog.error(log);
