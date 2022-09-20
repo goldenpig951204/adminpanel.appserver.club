@@ -180,7 +180,7 @@ const adminMiddleware = async (req, res, next) => {
     let wpInfoDecoded = JSON.parse(base64.decode(wpInfo));
     if (!wpInfoDecoded.user.isAdmin) return res.status(400).end('Restricted Access.');
     if (!sessionMapper.get(`${wpInfoDecoded.site}-${wpInfoDecoded.user.id}`)) sessionMapper.set(`${wpInfoDecoded.site}-${wpInfoDecoded.user.id}`, sess);
-    if (sessionMapper.get(`${wpInfoDecoded.site}-${wpInfoDecoded.user.id}`) !== sess) return res.status(400).end('Multiple Browsers is not allowed.');
+    // if (sessionMapper.get(`${wpInfoDecoded.site}-${wpInfoDecoded.user.id}`) !== sess) return res.status(400).end('Multiple Browsers is not allowed.');
     next();
 }
 
